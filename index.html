@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horizon — Flight Simulator</title>
+    <meta
+      name="description"
+      content="Horizon is a cinematic in-browser 3D flight simulator. Take off from a coastal airbase, fly the ring course, and land runway 36."
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "./vendor/addons/"
+        }
+      }
+    </script>
+    <script>
+      window.addEventListener("error", (e) => {
+        const el = document.getElementById("load-msg");
+        if (el) el.textContent = "ERROR: " + e.message;
+      });
+      window.addEventListener("unhandledrejection", (e) => {
+        const el = document.getElementById("load-msg");
+        if (el) el.textContent = "ERROR: " + ((e.reason && e.reason.message) || e.reason);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="game">
+      <canvas id="c"></canvas>
+
+      <div id="hud" class="hidden">
+        <div class="vignette"></div>
+        <div class="panel brand">
+          HORIZON
+          <small>VX-9 · COASTAL FIELD</small>
+        </div>
+        <div class="panel mission">
+          <div class="label">MISSION</div>
+          <div class="value" id="mission-val">RING 1 / 8</div>
+        </div>
+        <div class="panel cam-chip" id="cam-val">CHASE</div>
+
+        <div class="heading">
+          <canvas id="hdg-canvas"></canvas>
+          <div class="bug"></div>
+        </div>
+
+        <div class="tape left panel">
+          <div class="label">IAS</div>
+          <div class="value" id="spd-val">000</div>
+          <div class="unit">KTS</div>
+        </div>
+        <div class="tape right panel">
+          <div class="label">AGL</div>
+          <div class="value" id="alt-val">000</div>
+          <div class="unit" id="vsi-val">+0</div>
+        </div>
+
+        <div id="horizon-wrap"><canvas id="horizon"></canvas></div>
+        <div class="stall" id="stall">STALL</div>
+
+        <div class="strip">
+          <div class="cell" id="gear-cell">
+            <div class="k">GEAR</div>
+            <div class="v" id="gear-val">DOWN</div>
+          </div>
+          <div class="cell" id="flap-cell">
+            <div class="k">FLAPS</div>
+            <div class="v" id="flaps-val">FULL</div>
+          </div>
+          <div id="throttle-bar" class="cell">
+            <div class="k">THR</div>
+            <div class="track"><div id="throttle-fill"></div></div>
+            <div class="v" id="thr-val">0%</div>
+          </div>
+          <div class="cell" id="g-cell">
+            <div class="k">G</div>
+            <div class="v" id="g-val">1.0</div>
+          </div>
+          <div class="cell">
+            <div class="k">AoA</div>
+            <div class="v" id="aoa-val">0.0°</div>
+          </div>
+        </div>
+
+        <div class="panel status" id="status-val">HOLDING SHORT</div>
+        <div class="panel help" id="help">
+          W/S pitch · A/D roll · Q/E rudder<br />
+          SHIFT / CTRL throttle · B brake<br />
+          G gear · F flaps · C camera · R reset<br />
+          1–4 views · H help
+        </div>
+      </div>
+
+      <div class="crash" id="crash">
+        <div class="box">
+          AIRCRAFT LOST
+          <small>PRESS R TO RESET</small>
+        </div>
+      </div>
+
+      <div id="overlay">
+        <div class="card">
+          <h1>HORIZON</h1>
+          <div class="tag">VX-9 FLIGHT SIMULATOR</div>
+          <p class="lead">
+            A cinematic jet over a handmade archipelago. Take off from the coastal strip, thread the
+            light rings, and bring her home on runway 36.
+          </p>
+          <div class="controls">
+            <div><span>W / S</span> pitch</div>
+            <div><span>A / D</span> roll</div>
+            <div><span>Q / E</span> yaw</div>
+            <div><span>SHIFT</span> throttle up</div>
+            <div><span>CTRL</span> throttle down</div>
+            <div><span>B</span> brakes</div>
+            <div><span>G / F</span> gear / flaps</div>
+            <div><span>C / R</span> camera / reset</div>
+          </div>
+          <button id="start-btn" disabled>LOADING</button>
+          <div class="load" id="load-msg">INITIALIZING RENDERER…</div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

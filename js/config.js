@@ -1,0 +1,35 @@
+export const CONFIG = {
+  mass: 7200,
+  wingArea: 44,
+  wingSpan: 10.6,
+  maxThrust: 108000,
+  milThrust: 76000,
+  rho0: 1.225,
+  g: 9.81,
+  stallAoa: 0.28,
+  maxAoa: 0.42,
+  gearHeight: 1.72,
+  bellyHeight: 0.95,
+  rotateSpeed: 48,
+  brakeForce: 28000,
+  wheelFriction: 4200,
+  assist: true,
+
+  runwayY: 6.25,
+  runwayHalfWidth: 24,
+  runwayZ0: -520,
+  runwayZ1: 1520,
+
+  start: { x: 0, y: 8.6, z: -280, heading: 0 },
+
+  rings: [
+    { x: 0, y: 170, z: 2100 },
+    { x: 720, y: 260, z: 3100 },
+    { x: 1900, y: 220, z: 2700 },
+    { x: 2380, y: 310, z: 1320 },
+    { x: 1680, y: 340, z: 80 },
+    { x: 420, y: 240, z: -920 },
+    { x: -280, y: 150, z: 140 },
+    { x: 0, y: 95, z: 860 },
+  ],
+};
